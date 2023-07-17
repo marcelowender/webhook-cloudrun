@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+  {
+    "type": "java",
+    "name": "Launch Java Program",
+    "request": "launch",
+    "mainClass": ""
+  },
+    {
+      "type": "java",
+      "name": "Launch Current File",
+      "request": "launch",
+      "mainClass": "${file}"
+    },
+    {
+      "type": "java",
+      "name": "Launch WebhookApplication",
+      "request": "launch",
+      "mainClass": "com.marcelo.webhook.WebhookApplication",
+      "projectName": "webhook-cloudrun"
+    }
+  ]
+}
