@@ -33,7 +33,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
 }
 
-group 'com.zebra'
+group 'com.marcelo'
 version '1.0-SNAPSHOT'
 description = 'Webhook cloudrun'
 sourceCompatibility = '17'
@@ -58,7 +58,6 @@ jib {
     to {
         image = "gcr.io/marcelo-coelho-dev/webhook-cloudrun"
     }
-    containerizingMode='packaged'
 }
 
 tasks.withType(JavaCompile) {
