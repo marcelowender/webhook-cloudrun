@@ -1,7 +1,11 @@
-**/.DS_Store
-.idea
-target
-.classpath
-.project
-.settings
+/classes
+**/build.env.properties
+/build
+/.gradle
+/.idea/
 *.iml
+/out
+*.tgz
+.*.swp
+*.log
+.DS_Store
