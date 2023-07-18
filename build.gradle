@@ -47,8 +47,17 @@ java {
 
 //https://glaforge.dev/posts/2022/10/24/build-deploy-java-17-apps-on-cloud-run-with-cloud-native-buildpacks-on-temurin/
 jib {
-    from.image = 'eclipse-temurin:17-jre'
-    to.image = "gcr.io/marcelo-coelho-dev/webhook-cloudrun"
+    pluginExtensions {
+        pluginExtension {
+            implementation = 'com.google.cloud.tools.jib.gradle.extension.springboot.JibSpringBootExtension'
+        }
+    }
+    from {
+        image = 'eclipse-temurin:17.0.7_7-jre-focal'
+    }
+    to {
+        image = "gcr.io/marcelo-coelho-dev/webhook-cloudrun"
+    }
     containerizingMode='packaged'
 }
 
