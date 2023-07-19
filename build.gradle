@@ -3,67 +3,56 @@
  *
  * This project uses @Incubating APIs which are subject to change.
  */
+
 buildscript {
     dependencies {
         classpath('com.google.cloud.tools:jib-spring-boot-extension-gradle:0.1.0')
     }
 }
-
 plugins {
+    id 'java-library'
+    id 'maven-publish'
     id 'org.springframework.boot' version '2.7.10'
     id "io.spring.dependency-management" version "1.1.0"
     id 'java'
     id 'com.google.cloud.tools.jib' version '3.3.1'
 }
 
+group = 'com.marcelo'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+java.sourceCompatibility = JavaVersion.VERSION_11
+
 repositories {
-    maven {
-        url "https://maven-central.storage-download.googleapis.com/repos/central/data/"
-    }
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.cloud:spring-cloud-gcp-starter-logging:1.2.8.RELEASE'
     implementation 'com.h2database:h2:2.2.220'
     implementation 'com.jayway.jsonpath:json-path:2.8.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+    implementation 'org.springframework.cloud:spring-cloud-gcp-starter-logging:1.2.8.RELEASE'
 }
 
-group 'com.marcelo'
-version '1.0-SNAPSHOT'
-description = 'Webhook cloudrun'
-sourceCompatibility = '17'
-targetCompatibility = '17'
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
     }
 }
+// jib {
+//   containerizingMode =  'packaged'
+// }
 
-//https://glaforge.dev/posts/2022/10/24/build-deploy-java-17-apps-on-cloud-run-with-cloud-native-buildpacks-on-temurin/
 jib {
     pluginExtensions {
         pluginExtension {
             implementation = 'com.google.cloud.tools.jib.gradle.extension.springboot.JibSpringBootExtension'
         }
     }
-    from {
-        image = 'eclipse-temurin:17.0.7_7-jre-focal'
-    }
     to {
-        image = "gcr.io/marcelo-coelho-dev/webhook-cloudrun"
+        image = 'gcr.io/marcelo-coelho-dev/webhook-cloudrun'
     }
-}
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
-tasks.withType(Javadoc) {
-    options.encoding = 'UTF-8'
 }
