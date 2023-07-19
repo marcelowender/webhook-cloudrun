@@ -10,18 +10,7 @@ import java.util.Collections;
 @SpringBootApplication
 public class WebhookApplication {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebhookApplication.class);
-
-    public static void main(final String[] args) {
-        String port = System.getenv("PORT");
-        if (port == null) {
-            port = "8080";
-            logger.warn("$PORT environment variable not set, defaulting to 8080");
-        }
-        SpringApplication app = new SpringApplication(WebhookApplication.class);
-        app.setDefaultProperties(Collections.singletonMap("server.port", port));
-
-        app.run(args);
-        logger.info("Webhook started");
+    public static void main(String[] args) {
+        SpringApplication.run(WebhookApplication.class, args);
     }
 }
